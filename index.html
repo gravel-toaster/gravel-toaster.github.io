@@ -2,48 +2,164 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Vincent Li (aka gravel_toaster)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>gravel_toaster's page</title>
   <style>
-    body {
-      max-width: 680px;
-      margin: 40px auto;
-      padding: 0 16px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      line-height: 1.6;
-      color: #222;
-      background: #fff;
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --code-bg: #1f242c;
     }
-    h1, h2 { font-weight: 600; }
-    code { font-family: monospace; background: #f4f4f4; padding: 2px 4px; }
-    a { color: #0366d6; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 8px; }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #ffffff;
+        --card-bg: #f6f8fa;
+        --border: #d0d7de;
+        --text: #1f2328;
+        --muted: #656d76;
+        --accent: #0969da;
+        --code-bg: #eaeef2;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 48px 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    main {
+      width: 100%;
+      max-width: 680px;
+    }
+
+    header {
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+      font-size: 0.85em;
+      background: var(--code-bg);
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
-  <h1>gravel_toaster</h1>
-  <p>Compiler backend developer working on LLVM and GCC.</p>
-  <p><a href="https://github.com/yourhandle">GitHub</a> | <a href="mailto:you@email.com">Email</a></p>
+  <main>
+    <header>
+      <h1>Vincent Li (aka gravel_toaster)</h1>
+      <p class="meta">Compilers, instruction selection, and runtime environments.</p>
+    </header>
 
-  <h2>Upstream Patches</h2>
-  <ul>
-    <li>
-      <strong>GCC (libgccjit):</strong> Added indirect jump support (<code>GIMPLE_GOTO</code>) and ABI entry points under <code>LIBGCCJIT_ABI_39</code>. 
-      [<a href="#">Mailing List</a>]
-    </li>
-    <li>
-      <strong>LLVM (GlobalISel):</strong> Instruction selection and address generation folding patterns.
-      [<a href="#">Patch</a>]
-    </li>
-  </ul>
+    <h2>Upstream Artifacts</h2>
+    <div class="grid">
+      <a href="#" class="card">
+        <div class="card-title">
+          <span>libgccjit: Indirect Jumps</span>
+          <span class="tag">GCC / ABI 39</span>
+        </div>
+        <p>Lowering computed jumps through <code>GIMPLE_GOTO</code> and adding verification test suites.</p>
+      </a>
 
-  <h2>Projects</h2>
-  <ul>
-    <li>
-      <strong>Project Name:</strong> Custom compiled language featuring explicit CFG basic blocks, Braun SSA construction, and dual backends (LLVM IR / libgccjit).
-      [<a href="#">Repo</a>]
-    </li>
-  </ul>
+      <a href="#" class="card">
+        <div class="card-title">
+          <span>GlobalISel x86 Addressing</span>
+          <span class="tag">LLVM</span>
+        </div>
+        <p>Folding <code>G_SHL</code> and <code>G_PTR_ADD</code> sequences directly into complex <code>leaq</code> patterns.</p>
+      </a>
+    </div>
+
+    <h2>Projects</h2>
+    <div class="grid">
+      <a href="#" class="card">
+        <div class="card-title">
+          <span>Scythe</span>
+          <span class="tag">Codeberg</span>
+        </div>
+        <p>Experimental language frontend featuring Braun SSA construction and explicit CFG lowering.</p>
+      </a>
+    </div>
+  </main>
 </body>
-</html>
+<
